@@ -198,6 +198,9 @@ if st.button("Create EPUB"):
                 # List to hold processed pages (additional pages first)
                 processed_pages = []
 
+                # Initialize a counter for page numbering
+                page_number = 0
+                
                 # Handle additional pages first
                 for page in additional_pages:
                     if page['type'] == 'Title Page':
@@ -215,8 +218,10 @@ if st.button("Create EPUB"):
                         processed_pages.append({
                             'title': 'Title Page',
                             'content': html_content,
-                            'number': 0  # Ensures it's first
+                            'number': page_number  # Set to current page number
                         })
+                        page_number += 1  # Increment page number
+                
                     elif page['type'] == 'Copyright Page':
                         content = page['content']
                         html_content = generate_copyright_page_html(
@@ -228,8 +233,10 @@ if st.button("Create EPUB"):
                         processed_pages.append({
                             'title': 'Copyright Page',
                             'content': html_content,
-                            'number': 1  # Ensures it's second
+                            'number': page_number  # Set to current page number
                         })
+                        page_number += 1  # Increment page number
+                
                     elif page['type'] == 'Others Page':
                         content = page['content']
                         html_content = generate_others_page_html(
@@ -243,13 +250,18 @@ if st.button("Create EPUB"):
                         processed_pages.append({
                             'title': content['heading'],
                             'content': html_content,
-                            'number': 2
+                            'number': page_number  # Set to current page number
                         })
+                        page_number += 1  # Increment page number
+                
+                # Now add the chapters
                 for i in range(num_chapters):
                     processed_pages.append({
                         'title': chapter_title[i],
                         'content': chapter_html[i],
-                        'number': 2 + i })
+                        'number': page_number  # Continue numbering from where we left off
+                    })
+                    page_number += 1  # Increment page number for the next chapter
 
                 # Create EPUB with all pages
                 output_file = create_epub(processed_pages, book_title, author)
