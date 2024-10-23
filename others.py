@@ -21,17 +21,24 @@ def generate_others_page_html(heading, text, font_style, heading_font_size, cont
                 font-size: {content_font_size}px;
                 width: 100%;
                 max-width: 800px;
-                text-align: left;
+                text-align: center;  /* Center the text */
                 margin-top: 20px;
             }}
             h1 {{
                 font-size: {heading_font_size}px;
-                margin: 0;  /* Remove default margin */
+                margin: 0;
+                text-align: center;  /* Center the heading */
             }}
         </style>
     </head>
-    <body>
-        <h1>{heading}</h1>
+    <body>"""
+    
+    # Include heading only if provided
+    if heading.strip():
+        html_content += f"""
+        <h1>{heading}</h1>"""
+    
+    html_content += f"""
         <div class="others">
             <p>{text}</p>
         </div>
@@ -39,6 +46,7 @@ def generate_others_page_html(heading, text, font_style, heading_font_size, cont
     </html>
     """
     return html_content
+
 
 def save_others_page_html(html_content, output_dir='temp_pages', file_name='other.xhtml'):
 

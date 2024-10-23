@@ -34,9 +34,13 @@ def create_epub(pages, title, author):
     sorted_pages = sorted(pages, key=lambda x: x['number'])
 
     for page in sorted_pages:
-        page_title = page['title']
+        page_title = page.get('title', '').strip()  # Get the title and strip any whitespace
         page_number = page['number']
         html_content = page['content']
+
+        # Skip adding the page to TOC if title is empty
+        if page_title == "" and page_number == 0:
+            continue  # Do not include the page if there's no title for others page
 
         # Parse HTML content
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -54,8 +58,9 @@ def create_epub(pages, title, author):
         book.add_item(epub_page)
         epub_items.append(epub_page)
 
-        # Add to Table of Contents
-        toc.append(epub.Link(file_name, page_title, file_name))
+        # Add to Table of Contents if the title is not empty
+        if page_title:
+            toc.append(epub.Link(file_name, page_title, file_name))
 
     # Define Table of Contents
     book.toc = tuple(toc)

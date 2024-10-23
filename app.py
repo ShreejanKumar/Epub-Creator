@@ -104,13 +104,13 @@ if "Others" in selected_pages:
         st.subheader("Others Page Configuration")
         
         # Get heading and content from the user
-        others_heading = st.text_input("Page Heading", value="Custom Page Heading", key="others_heading")
+        others_heading = st.text_input("Page Heading (optional)", value="", key="others_heading")
         others_content = st.text_area("Page Content", value="This is the content for the others page.", height=200, key="others_content")
 
         # Get font style and sizes
         others_font_style = st.selectbox("Font Style for Others Page:", fonts, key="others_font_style")
         others_heading_font_size = st.slider(
-            "Heading Font Size",
+            "Heading Font Size (optional)",  # Indicating it's optional
             min_value=20,
             max_value=100,
             step=2,
@@ -130,7 +130,7 @@ if "Others" in selected_pages:
         additional_pages.append({
             'type': 'Others Page',
             'content': {
-                'heading': others_heading,
+                'heading': others_heading,  # Will pass empty string if not provided
                 'text': others_content,
                 'font_style': others_font_style,
                 'heading_font_size': others_heading_font_size,
@@ -179,14 +179,10 @@ if st.button("Create EPUB"):
                 missing_fields.append("Printer Name for Copyright Page")
         elif page['type'] == 'Others Page':
             content = page['content']
-            if not content['heading']:
-                missing_fields.append("Heading for Others Page")
             if not content['text']:
                 missing_fields.append("Content for Others Page")
             if not content['font_style']:
                 missing_fields.append("Font Style for Others Page")
-            if not content['heading_font_size']:
-                missing_fields.append("Heading Font Size for Others Page")
             if not content['content_font_size']:
                 missing_fields.append("Content Font Size for Others Page")
 
