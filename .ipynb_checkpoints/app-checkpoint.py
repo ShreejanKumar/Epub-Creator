@@ -212,41 +212,42 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
     if "Others" in selected_pages:
         with st.expander("Others Page Details"):
             st.subheader("Others Page Configuration")
-            
+            num_others = st.number_input("Number of Others Pages", min_value=1, max_value=10, value=1)
             # Get heading and content from the user
-            others_heading = st.text_input("Page Heading (optional)", value="", key="others_heading")
-            others_content = st.text_area("Page Content", value="This is the content for the others page.", height=200, key="others_content")
-    
-            # Get font style and sizes
-            others_font_style = st.selectbox("Font Style for Others Page:", fonts, key="others_font_style")
-            others_heading_font_size = st.slider(
-                "Heading Font Size (optional)",  # Indicating it's optional
-                min_value=20,
-                max_value=100,
-                step=2,
-                value=36,
-                key="others_heading_font_size"
-            )
-            others_content_font_size = st.slider(
-                "Content Font Size",
-                min_value=14,
-                max_value=50,
-                step=2,
-                value=20,
-                key="others_content_font_size"
-            )
-    
-            # Append Others Page details to additional_pages
-            additional_pages.append({
-                'type': 'Others Page',
-                'content': {
-                    'heading': others_heading,  # Will pass empty string if not provided
-                    'text': others_content,
-                    'font_style': others_font_style,
-                    'heading_font_size': others_heading_font_size,
-                    'content_font_size': others_content_font_size
-                }
-            })
+            for i in range(num_others):
+                others_heading = st.text_input(f"Page Heading {i+1} (optional)", value="", key=f"others_heading_{i}")
+                others_content = st.text_area(f"Page Content {i+1}", value="This is the content for the others page.", height=200, key=f"others_content_{i}")
+        
+                # Get font style and sizes
+                others_font_style = st.selectbox(f"Font Style for Others Page {i+1}:", fonts, key=f"others_font_style_{i}")
+                others_heading_font_size = st.slider(
+                    f"Heading Font Size (optional) {i+1}",  # Indicating it's optional
+                    min_value=20,
+                    max_value=100,
+                    step=2,
+                    value=36,
+                    key=f"others_heading_font_size_{i}"
+                )
+                others_content_font_size = st.slider(
+                    f"Content Font Size {i+1}",
+                    min_value=14,
+                    max_value=50,
+                    step=2,
+                    value=20,
+                    key=f"others_content_font_size_{i}"
+                )
+        
+                # Append Others Page details to additional_pages
+                additional_pages.append({
+                    'type': 'Others Page',
+                    'content': {
+                        'heading': others_heading,  # Will pass empty string if not provided
+                        'text': others_content,
+                        'font_style': others_font_style,
+                        'heading_font_size': others_heading_font_size,
+                        'content_font_size': others_content_font_size
+                    }
+                })
     
     
     st.header("Upload Chapter Files")
