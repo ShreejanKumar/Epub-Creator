@@ -22,10 +22,14 @@ def create_epub(pages, title, author):
     book.set_title(title)
     book.set_language('en')
     book.add_author(author)
-    image = epub.EpubImage()
-    image.set_content(open("Screenshot (53).png", 'rb').read())
-    image.file_name = "images/copywright.png"  # Save with a specific name in EPUB
-    book.add_item(image)
+    image_nu = epub.EpubImage()
+    image_nu.set_content(open("Screenshot (53).png", 'rb').read())
+    image_nu.file_name = "images/copywright_nu.png"  # Save with a specific name in EPUB
+    book.add_item(image_nu)
+    image_sol = epub.EpubImage()
+    image_sol.set_content(open("Screenshot (57).png", 'rb').read())
+    image_sol.file_name = "images/copywright_sol.png"  # Save with a specific name in EPUB
+    book.add_item(image_sol)
 
     epub_items = []
     toc = []
