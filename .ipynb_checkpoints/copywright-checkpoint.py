@@ -1,4 +1,4 @@
-def generate_copyright_page_html(author_name, typesetter_name, printer_name, year):
+def generate_copyright_page_html(author_name, typesetter_name, printer_name, press_name, year):
     # Create HTML content for the Copyright Page
     html_content = f"""
 <html>
@@ -27,7 +27,7 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, yea
         <p>ISBN: 978-81-963184-7-5</p>
         <p>Typeset by {typesetter_name}</p>
         <p>Printed at {printer_name}</p>
-        <p>Published by Nu Voice Press</p>
+        <p>Published by {press_name}</p>
     </div>
 </body>
 </html>

@@ -38,10 +38,6 @@ def create_epub(pages, title, author):
         page_number = page['number']
         html_content = page['content']
 
-        # # Skip adding the page to TOC if title is empty
-        # if page_title == "" and page_number == 0:
-        #     continue  # Do not include the page if there's no title for others page
-
         # Parse HTML content
         soup = BeautifulSoup(html_content, 'html.parser')
         if page_number == 0:

@@ -196,6 +196,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
             cp_author_name = st.text_input("Author Name", value=author, key="cp_author_name")
             cp_typesetter_name = st.text_input("Typesetter Name", value="Typesetter Name", key="cp_typesetter_name")
             cp_printer_name = st.text_input("Printer Name", value="Printer Name", key="cp_printer_name")
+            cp_press_name = st.text_input("Press Name", value="Press Name", key="cp_press_name")
             cp_year = st.text_input("Year", value="Year", key="cp_year")
             
             # Append Copyright Page details to additional_pages
@@ -205,6 +206,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     'author_name': cp_author_name,
                     'typesetter_name': cp_typesetter_name,
                     'printer_name': cp_printer_name,
+                    'press_name' : cp_press_name,
                     'year': cp_year
                 }
             })
@@ -288,6 +290,8 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     missing_fields.append("Typesetter Name for Copyright Page")
                 if not content['printer_name']:
                     missing_fields.append("Printer Name for Copyright Page")
+                if not content['press_name']:
+                    missing_fields.append("Press Name for Copyright Page")
                 if not content['year']:
                     missing_fields.append("Year for Copyright Page")
             elif page['type'] == 'Others Page':
@@ -337,6 +341,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                                 author_name=content['author_name'],
                                 typesetter_name=content['typesetter_name'],
                                 printer_name=content['printer_name'],
+                                press_name=content['press_name'],
                                 year = content['year']
                             )
                             html_path = save_copyright_page_html(html_content)
