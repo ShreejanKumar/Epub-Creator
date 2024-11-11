@@ -119,6 +119,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
     book_title = st.text_input("Book Title", value="My Book Title")
     author = st.text_input("Author", value="Author Name")
     num_chapters = st.number_input('How many chapters do you want to add?', min_value=1, max_value=50, step=1, value=1)
+    include_content_page = st.checkbox("Include Content Page", value=True)
     
     fonts = ["Helvetica", "Helvetica-Bold", "Courier", "Times-Roman"]
     
@@ -379,7 +380,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                         page_number += 1  # Increment page number for the next chapter
     
                     # Create EPUB with all pages
-                    output_file = create_epub(processed_pages, book_title, author)
+                    output_file = create_epub(processed_pages, book_title, author, include_content_page)
                     st.success(f"EPUB created successfully: {output_file}")
     
                     # Provide a download button for the EPUB

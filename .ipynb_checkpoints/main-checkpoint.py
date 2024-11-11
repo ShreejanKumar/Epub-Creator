@@ -2,7 +2,7 @@ from lxml import etree
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
-def create_epub(pages, title, author):
+def create_epub(pages, title, author, include_content_page):
     """
     Creates an EPUB book from additional pages and chapters.
 
@@ -17,7 +17,7 @@ def create_epub(pages, title, author):
     """
     # Create an EPUB book
     book = epub.EpubBook()
-
+    
     # Set metadata
     book.set_title(title)
     book.set_language('en')
@@ -63,17 +63,28 @@ def create_epub(pages, title, author):
             toc.append(epub.Link(file_name, page_title, file_name))
 
     # Define Table of Contents
-    book.toc = tuple(toc)
+    if include_content_page:
+        book.toc = tuple(toc)
+        book.add_item(epub.EpubNcx())
+        book.add_item(epub.EpubNav())
+        spine_items = ['nav'] + epub_items
+        book.spine = spine_items
 
-    # Add default NCX and Nav files
-    book.add_item(epub.EpubNcx())
-    book.add_item(epub.EpubNav())
+        # Write the EPUB file
+        output_file_name = f'{title.replace(" ", "_")}.epub'
+        epub.write_epub(output_file_name, book, {})
+        return output_file_name
+    
+    else:
 
-    # Define Spine
-    spine_items = ['nav'] + epub_items
-    book.spine = spine_items
-
-    # Write the EPUB file
-    output_file_name = f'{title.replace(" ", "_")}.epub'
-    epub.write_epub(output_file_name, book, {})
-    return output_file_name
+        # Add default NCX and Nav files
+        book.add_item(epub.EpubNav())
+    
+        # Define Spine
+        spine_items = epub_items
+        book.spine = spine_items
+    
+        # Write the EPUB file
+        output_file_name = f'{title.replace(" ", "_")}.epub'
+        epub.write_epub(output_file_name, book, {})
+        return output_file_name

@@ -119,6 +119,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
     book_title = st.text_input("Book Title", value="My Book Title")
     author = st.text_input("Author", value="Author Name")
     num_chapters = st.number_input('How many chapters do you want to add?', min_value=1, max_value=50, step=1, value=1)
+    include_content_page = st.checkbox("Include Content Page", value=True)
     
     fonts = ["Helvetica", "Helvetica-Bold", "Courier", "Times-Roman"]
     
@@ -196,7 +197,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
             cp_author_name = st.text_input("Author Name", value=author, key="cp_author_name")
             cp_typesetter_name = st.text_input("Typesetter Name", value="Typesetter Name", key="cp_typesetter_name")
             cp_printer_name = st.text_input("Printer Name", value="Printer Name", key="cp_printer_name")
-            cp_press_name = st.text_input("Press Name", value="Press Name", key="cp_press_name")
+            cp_press_name = st.selectbox("Press Name", options=["Nu Voice Press", "Solomon Press"], key="cp_press_name")
             cp_year = st.text_input("Year", value="Year", key="cp_year")
             
             # Append Copyright Page details to additional_pages
@@ -206,7 +207,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     'author_name': cp_author_name,
                     'typesetter_name': cp_typesetter_name,
                     'printer_name': cp_printer_name,
-                    'press_name' : cp_press_name,
+                    'press_name': cp_press_name,
                     'year': cp_year
                 }
             })
@@ -379,7 +380,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                         page_number += 1  # Increment page number for the next chapter
     
                     # Create EPUB with all pages
-                    output_file = create_epub(processed_pages, book_title, author)
+                    output_file = create_epub(processed_pages, book_title, author, include_content_page)
                     st.success(f"EPUB created successfully: {output_file}")
     
                     # Provide a download button for the EPUB
