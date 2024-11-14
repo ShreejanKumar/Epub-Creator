@@ -118,7 +118,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
     # Book Details Inputs
     book_title = st.text_input("Book Title", value="My Book Title")
     author = st.text_input("Author", value="Author Name")
-    num_chapters = st.number_input('How many chapters do you want to add?', min_value=1, max_value=50, step=1, value=1)
+    num_chapters = st.number_input('How many chapters do you want to add?', min_value=1, step=1, value=1)
     include_content_page = st.checkbox("Include Content Page", value=True)
     
     fonts = ["Helvetica", "Helvetica-Bold", "Courier", "Times-Roman"]
