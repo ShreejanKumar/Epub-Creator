@@ -1,4 +1,4 @@
-def generate_copyright_page_html(author_name, typesetter_name, printer_name, press_name, year):
+def generate_copyright_page_html(author_name, typesetter_name, printer_name, press_name, year, isbn):
     if press_name == "Nu Voice Press":
         # Create HTML content for the Copyright Page
         html_content = f"""
@@ -25,7 +25,7 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, pre
             <p>The moral rights of the author have been asserted. Database right NU VOICE PRESS (maker).</p>
             <p>This is a work of fiction, and all characters and incidents described in this book are the product of the author's imagination. Any resemblance to actual persons, living or dead, is entirely coincidental.</p>
             <p>All rights reserved. Enquiries concerning reproduction outside the scope of the above should be sent to NU VOICE PRESS at the address above.</p>
-            <p>ISBN: 978-81-963184-7-5</p>
+            <p>ISBN: {isbn}</p>
             <p>Typeset by {typesetter_name}</p>
             <p>Printed at {printer_name}</p>
             <p>Published by Nu Voice Press</p>
@@ -59,7 +59,7 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, pre
             <p>This is a work of fiction, and all characters and incidents described in this book are the product of the author's imagination. Any resemblance to actual persons, living or dead, is entirely coincidental.</p>
             <p>All rights reserved. Enquiries concerning reproduction outside the scope of the above should be sent to Solomon Press at the below address.</p>
             <p>Address : Unit-125, First floor, Vipul Trade Centre, Sector-48, Sohna Road, South City-2 Gurugram, Haryana,122018.</p>
-            <p>ISBN: 978-81-977581-4-0</p>
+            <p>ISBN: {isbn}</p>
             <p>Typeset by {typesetter_name}</p>
             <p>Printed at {printer_name}</p>
             <p>Published by Solomon Press {year}</p>

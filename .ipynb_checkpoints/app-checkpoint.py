@@ -199,6 +199,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
             cp_printer_name = st.text_input("Printer Name", value="Printer Name", key="cp_printer_name")
             cp_press_name = st.selectbox("Press Name", options=["Nu Voice Press", "Solomon Press"], key="cp_press_name")
             cp_year = st.text_input("Year", value="Year", key="cp_year")
+            cp_isbn = st.text_input("ISBN", value="Isbn", key="cp_isbn")
             
             # Append Copyright Page details to additional_pages
             additional_pages.append({
@@ -208,7 +209,8 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     'typesetter_name': cp_typesetter_name,
                     'printer_name': cp_printer_name,
                     'press_name': cp_press_name,
-                    'year': cp_year
+                    'year': cp_year,
+                    'isbn': cp_isbn
                 }
             })
     
@@ -295,6 +297,8 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     missing_fields.append("Press Name for Copyright Page")
                 if not content['year']:
                     missing_fields.append("Year for Copyright Page")
+                if not content['isbn']:
+                    missing_fields.append("ISBN for Copyright Page")
             elif page['type'] == 'Others Page':
                 content = page['content']
                 if not content['text']:
@@ -343,7 +347,8 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                                 typesetter_name=content['typesetter_name'],
                                 printer_name=content['printer_name'],
                                 press_name=content['press_name'],
-                                year = content['year']
+                                year = content['year'],
+                                isbn = content['isbn']
                             )
                             html_path = save_copyright_page_html(html_content)
                             processed_pages.append({
