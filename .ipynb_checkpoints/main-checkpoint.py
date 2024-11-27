@@ -1,8 +1,11 @@
+from PIL import Image  # Add this at the top of your file
+import base64
+from io import BytesIO
 from lxml import etree
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
-def create_epub(pages, title, author, include_content_page):
+def create_epub(pages, title, author, include_content_page, up_file):
     """
     Creates an EPUB book from additional pages and chapters.
 
@@ -26,10 +29,39 @@ def create_epub(pages, title, author, include_content_page):
     image_nu.set_content(open("Screenshot (53).png", 'rb').read())
     image_nu.file_name = "images/copywright_nu.png"  # Save with a specific name in EPUB
     book.add_item(image_nu)
-    image_sol = epub.EpubImage()
-    image_sol.set_content(open("Screenshot (57).png", 'rb').read())
-    image_sol.file_name = "images/copywright_sol.png"  # Save with a specific name in EPUB
-    book.add_item(image_sol)
+
+    if up_file:
+        try:
+            # Read the uploaded file content
+            file_content = up_file.read()
+            
+            # Create a temporary file
+            temp_path = f"temp_{up_file.name}"
+            with open(temp_path, "wb") as f:
+                f.write(file_content)
+            
+            # Open and verify the image
+            with Image.open(temp_path) as img:
+                # Convert to PNG format
+                output_buffer = BytesIO()
+                img.save(output_buffer, format="PNG")
+                image_content = output_buffer.getvalue()
+            
+            # Add to epub
+            image_up = epub.EpubItem(
+                uid="image_up",
+                file_name="images/up.png",
+                media_type="image/png",
+                content=image_content
+            )
+            book.add_item(image_up)
+            
+            # Clean up temporary file
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+                
+        except Exception as e:
+            print(f"Error processing uploaded image: {e}")
 
     epub_items = []
     toc = []

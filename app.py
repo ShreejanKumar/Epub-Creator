@@ -200,18 +200,25 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
             cp_press_name = st.selectbox("Press Name", options=["Nu Voice Press", "Solomon Press"], key="cp_press_name")
             cp_year = st.text_input("Year", value="Year", key="cp_year")
             cp_isbn = st.text_input("ISBN", value="Isbn", key="cp_isbn")
+            up_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"], key="up_file")
+            
+            cp_page_content = {
+                'author_name': cp_author_name,
+                'typesetter_name': cp_typesetter_name,
+                'printer_name': cp_printer_name,
+                'press_name': cp_press_name,
+                'year': cp_year,
+                'isbn': cp_isbn,
+            }
+            
+            # Include subtitle only if it is provided	
+            if up_file is not None:   # Check if the image is not empty
+                cp_page_content['up_file'] = up_file
             
             # Append Copyright Page details to additional_pages
             additional_pages.append({
                 'type': 'Copyright Page',
-                'content': {
-                    'author_name': cp_author_name,
-                    'typesetter_name': cp_typesetter_name,
-                    'printer_name': cp_printer_name,
-                    'press_name': cp_press_name,
-                    'year': cp_year,
-                    'isbn': cp_isbn
-                }
+                'content': cp_page_content
             })
     
     if "Others" in selected_pages:
@@ -348,7 +355,8 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                                 printer_name=content['printer_name'],
                                 press_name=content['press_name'],
                                 year = content['year'],
-                                isbn = content['isbn']
+                                isbn = content['isbn'],
+                                up_file = content.get('up_file', '')
                             )
                             html_path = save_copyright_page_html(html_content)
                             processed_pages.append({
@@ -385,7 +393,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                         page_number += 1  # Increment page number for the next chapter
     
                     # Create EPUB with all pages
-                    output_file = create_epub(processed_pages, book_title, author, include_content_page)
+                    output_file = create_epub(processed_pages, book_title, author, include_content_page, up_file)
                     st.success(f"EPUB created successfully: {output_file}")
     
                     # Provide a download button for the EPUB
