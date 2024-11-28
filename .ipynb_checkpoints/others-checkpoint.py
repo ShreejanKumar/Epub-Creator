@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
+from PIL import Image  # Add this at the top of your file
+import base64
+from io import BytesIO
 
-def generate_others_page_html(heading, text, font_style, heading_font_size, content_font_size):
+def generate_others_page_html(heading, text, font_style, heading_font_size, content_font_size, up_file):
     # Create HTML content for the Others Page
+    base_img_data = ""
     html_content = f"""<!DOCTYPE html>
     <html>
     <head>
@@ -29,6 +33,10 @@ def generate_others_page_html(heading, text, font_style, heading_font_size, cont
                 margin: 0;
                 text-align: center;  /* Center the heading */
             }}
+            .uploaded-image {{
+            max-width: 100%;
+            height: auto;
+        }}
         </style>
     </head>
     <body>"""
@@ -37,14 +45,36 @@ def generate_others_page_html(heading, text, font_style, heading_font_size, cont
     if heading.strip():
         html_content += f"""
         <h1>{heading}</h1>"""
+
     
-    html_content += f"""
-        <div class="others">
-            <p>{text}</p>
-        </div>
-    </body>
-    </html>
-    """
+    if up_file != '':
+        file_bytes = up_file.read()
+        with open(f"./temp_{up_file.name}", "wb") as f:
+            f.write(file_bytes)
+        base_img = Image.open(f"./temp_{up_file.name}")
+        
+        # Convert image to Base64
+        buffered = BytesIO()
+        base_img.save(buffered, format="PNG")  # Save as PNG format
+        base_img_data = base64.b64encode(buffered.getvalue()).decode("utf-8")
+        uploaded_image_tag = (f'<img src="data:image/png;base64,{base_img_data}" alt="Uploaded Image" class="uploaded-image"/><br/>' 
+                              if base_img_data else "")
+        html_content += f"""
+            <div class="others">
+                <p>{text}</p>
+            </div>
+            {uploaded_image_tag}
+        </body>
+        </html>
+        """
+    else:
+        html_content += f"""
+            <div class="others">
+                <p>{text}</p>
+            </div>
+        </body>
+        </html>
+        """
     return html_content
 
 
