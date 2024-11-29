@@ -243,7 +243,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
                     value=20,
                     key=f"others_content_font_size_{i}"
                 )
-                up_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"], key="up_file")
+                up_file = st.file_uploader(f"Upload an image for Page {i+1}", type=["png", "jpg", "jpeg"], key=f"up_file_{i}")
                 others_page_content = {
                         'heading': others_heading,  # Will pass empty string if not provided
                         'text': others_content,
