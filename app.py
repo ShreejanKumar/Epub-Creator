@@ -325,7 +325,7 @@ if st.session_state['authenticated'] and not st.session_state['reset_mode']:
     
                     # Initialize a counter for page numbering
                     page_number = 0
-                    
+                    up_file = ''
                     # Handle additional pages first
                     for page in additional_pages:
                         if page['type'] == 'Title Page':
