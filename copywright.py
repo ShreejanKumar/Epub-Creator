@@ -27,7 +27,7 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, pre
             <p>All rights reserved. Enquiries concerning reproduction outside the scope of the above should be sent to NU VOICE PRESS at the address above.</p>
             <p>ISBN: {isbn}</p>
             <p>Typeset by {typesetter_name}</p>
-            <p>Printed at {printer_name}</p>
+            <p>Printed in {printer_name}</p>
             <p>Published by Nu Voice Press</p>
         </div>
     </body>
@@ -61,7 +61,7 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, pre
             <p>Address : Unit-125, First floor, Vipul Trade Centre, Sector-48, Sohna Road, South City-2 Gurugram, Haryana,122018.</p>
             <p>ISBN: {isbn}</p>
             <p>Typeset by {typesetter_name}</p>
-            <p>Printed at {printer_name}</p>
+            <p>Printed in {printer_name}</p>
             <p>Published by Solomon Press {year}</p>
         </div>
     </body>
