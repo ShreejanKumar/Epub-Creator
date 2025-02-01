@@ -59,18 +59,20 @@ def generate_others_page_html(heading, text, font_style, heading_font_size, cont
         base_img_data = base64.b64encode(buffered.getvalue()).decode("utf-8")
         uploaded_image_tag = (f'<img src="data:image/png;base64,{base_img_data}" alt="Uploaded Image" class="uploaded-image"/><br/>' 
                               if base_img_data else "")
+        formatted_text = text.replace("\n", "<br>")
         html_content += f"""
             <div class="others">
-                <p>{text}</p>
+                <p>{formatted_text}</p>
             </div>
             {uploaded_image_tag}
         </body>
         </html>
         """
     else:
+        formatted_text = text.replace("\n", "<br>")
         html_content += f"""
             <div class="others">
-                <p>{text}</p>
+                <p>{formatted_text}</p>
             </div>
         </body>
         </html>
