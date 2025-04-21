@@ -59,7 +59,6 @@ def generate_copyright_page_html(author_name, printer_name, press_name, year, is
             <p>All rights reserved. Enquiries concerning reproduction outside the scope of the above should be sent to Solomon Press at the below address.</p>
             <p>Address : Unit-125, First floor, Vipul Trade Centre, Sector-48, Sohna Road, South City-2 Gurugram, Haryana,122018.</p>
             <p>ISBN: {isbn}</p>
-            <p>Typeset by {typesetter_name}</p>
             <p>Printed in {printer_name}</p>
             <p>Published by Solomon Press {year}</p>
         </div>
