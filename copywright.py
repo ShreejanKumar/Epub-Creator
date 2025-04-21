@@ -1,4 +1,4 @@
-def generate_copyright_page_html(author_name, typesetter_name, printer_name, press_name, year, isbn):
+def generate_copyright_page_html(author_name, printer_name, press_name, year, isbn):
     if press_name == "Nu Voice Press":
         # Create HTML content for the Copyright Page
         html_content = f"""
@@ -26,7 +26,6 @@ def generate_copyright_page_html(author_name, typesetter_name, printer_name, pre
             <p>This is a work of fiction, and all characters and incidents described in this book are the product of the author's imagination. Any resemblance to actual persons, living or dead, is entirely coincidental.</p>
             <p>All rights reserved. Enquiries concerning reproduction outside the scope of the above should be sent to NU VOICE PRESS at the address above.</p>
             <p>ISBN: {isbn}</p>
-            <p>Typeset by {typesetter_name}</p>
             <p>Printed in {printer_name}</p>
             <p>Published by Nu Voice Press</p>
         </div>
