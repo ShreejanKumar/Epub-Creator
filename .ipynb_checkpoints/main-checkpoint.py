@@ -28,6 +28,10 @@ def create_epub(pages, title, author, include_content_page, up_file):
     image_nu = epub.EpubImage()
     image_nu.set_content(open("Screenshot (53).png", 'rb').read())
     image_nu.file_name = "images/copywright_nu.png"  # Save with a specific name in EPUB
+    image_sol = epub.EpubImage()
+    image_sol.set_content(open("Screenshot (57).png", 'rb').read())
+    image_sol.file_name = "images/copywright_sol.png"  # Save with a specific name in EPUB
+    book.add_item(image_sol)
     book.add_item(image_nu)
 
     if up_file:
